@@ -33,13 +33,9 @@ public class DeadlockResolvedWithOrderSynchronization {
 			}
 		}
 
-		private synchronized void bowBack(Friend bower) {
-			synchronized (this) {
-				synchronized (bower) {
-					System.out.format("%s: %s" + " has bowed back to me!%n",
-							this.name, bower.getName());
-				}
-			}
+		private void bowBack(Friend bower) {
+			System.out.format("%s: %s" + " has bowed back to me!%n", this.name,
+					bower.getName());
 		}
 	}
 
