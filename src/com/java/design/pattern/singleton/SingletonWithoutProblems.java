@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 
 public class SingletonWithoutProblems implements Serializable, Cloneable {
 	
+	private static final long serialVersionUID = -478011518780485908L;
 	private static volatile SingletonWithoutProblems singleton;
 	
 	private SingletonWithoutProblems() throws Exception {
@@ -59,14 +60,18 @@ class TestSingletonWithoutProblems  {
 		System.out.println(s1.hashCode());
 		System.out.println(s2.hashCode());
 		
-		SingletonWithoutProblems s4 = constructor.newInstance();
-		System.out.println(s4.hashCode());
+		SingletonWithoutProblems s4 = null;
+		try {
+			s4 = constructor.newInstance();
+			System.out.println(s4.hashCode());
+			throw new RuntimeException("Singleton instance shouldn't have been created");
+		} catch(Exception e) {}
 	}
 	
 	public static void main(String[] args) throws Exception {
-		//testReflection();
-		//testSingleton();
-		//testSerializable();
+		testReflection();
+		testSingleton();
+		testSerializable();
 		testCloaneable();
 	}
 
